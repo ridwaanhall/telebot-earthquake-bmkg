@@ -9,15 +9,18 @@ token = os.environ['TELEGRAM_BOT_TOKEN']
 
 
 # https://api.telegram.org/bot{token}/setWebhook?url=https://telebot-college-test.ridwaanhall.repl.co/
-def generate_answer(question):
-  url = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-  response = requests.get(url)
+def generate_answer(message):
+  if message == "/new":
+    url = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url)
 
-  if response.status_code == 200:
-    info = response.json()["info"]
-    return info["headline"]
+    if response.status_code == 200:
+      info = response.json()["info"]
+      return info["headline"]
+    else:
+      return {"error": "Unable to fetch data from the URL."}
   else:
-    return {"error": "Unable to fetch data from the URL."}
+    return "Invalid command. Please use '/new'."
 
 
 # To Get Chat ID and message which is sent by client

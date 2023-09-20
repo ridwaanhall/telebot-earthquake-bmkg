@@ -1,0 +1,48 @@
+ARSIP ARSIP PENTINGG!!!!!!
+---------------------------------------
+------ ONLY SHOW HEADLINE -------------
+
+def generate_answer(message):
+  if message == "/new":
+    url = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+      info = response.json()["info"]
+      return info["headline"]
+    else:
+      return {"error": "Unable to fetch data from the URL."}
+  else:
+    return "Invalid command. Please use '/new'."
+
+----------------------------------------------------------------
+------- MAG, DATETIME, AREA, DEPTH, COORDINATES ---------------
+def generate_answer(message):
+    url = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        info = response.json()["info"]
+        if message == "/new":
+            return f"magnitude : {info['magnitude']}\n" \
+                   f"datetime : {info['date']} at {info['time']}\n" \
+                   f"area : {info['area']}\n" \
+                   f"depth : {info['depth']}\n" \
+                   f"coordinates : {info['latitude']}, {info['longitude']}"
+        else:
+            return "Invalid command. Please use '/new'."
+    else:
+        return {"error": "Unable to fetch data from the URL."}
+
+---------------------------------------------------
+------------ CODE =----------------------
+# To send message using "SendMessage" API
+def send_message_telegram(chat_id, text):
+    url = f'https://api.telegram.org/bot{token}/sendMessage'
+    payload = {
+        'chat_id': chat_id,
+        'text': f'<pre>{text}</pre>',
+        'parse_mode': 'HTML'
+    }
+    response = requests.post(url, json=payload)
+    return response

@@ -12,9 +12,10 @@ token = os.environ['TELEGRAM_BOT_TOKEN']
 def generate_answer(question):
   url = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
   response = requests.get(url)
-  print(response)
+
   if response.status_code == 200:
-    return response.json()
+    info = response.json()["info"]
+    return info["headline"]
   else:
     return {"error": "Unable to fetch data from the URL."}
 

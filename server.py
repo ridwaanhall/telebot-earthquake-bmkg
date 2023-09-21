@@ -18,7 +18,7 @@ def generate_answer(message):
     else:
       return {"error": "Unable to fetch data from the URL."}
 
-  if message == "/image_mmi_jpg":
+  if message == "/image_mmi":
     url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
     response = requests.get(url_new)
 
@@ -33,7 +33,73 @@ def generate_answer(message):
     else:
       return {"error": "Unable to fetch data from the URL."}
 
-  return "Invalid command. Please use '/new' or '/image_mmi_jpg'."
+  if message == "/intensity_logo":
+    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new)
+
+    if response.status_code == 200:
+      info = response.json()["info"]
+      eventid = info.get("eventid")
+      if eventid is not None:
+        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/intensity_logo.jpg'
+        return url_imageMMIjpg
+      else:
+        return {"error": "No eventid found."}
+    else:
+      return {"error": "Unable to fetch data from the URL."}
+
+  if message == "/impact_list":
+    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new)
+
+    if response.status_code == 200:
+      info = response.json()["info"]
+      eventid = info.get("eventid")
+      if eventid is not None:
+        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/impact_list.jpg'
+        return url_imageMMIjpg
+      else:
+        return {"error": "No eventid found."}
+    else:
+      return {"error": "Unable to fetch data from the URL."}
+
+  if message == "/stationlist_MMI":
+    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new)
+
+    if response.status_code == 200:
+      info = response.json()["info"]
+      eventid = info.get("eventid")
+      if eventid is not None:
+        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/stationlist_MMI.jpg'
+        return url_imageMMIjpg
+      else:
+        return {"error": "No eventid found."}
+    else:
+      return {"error": "Unable to fetch data from the URL."}
+
+  if message == "/loc_map":
+    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new)
+
+    if response.status_code == 200:
+      info = response.json()["info"]
+      eventid = info.get("eventid")
+      if eventid is not None:
+        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/loc_map.png'
+        return url_imageMMIjpg
+      else:
+        return {"error": "No eventid found."}
+    else:
+      return {"error": "Unable to fetch data from the URL."}
+
+  return """Invalid command. Please use :
+/new
+/intensity_logo
+/impact_list
+/image_mmi
+/stationlist_MMI
+/loc_map"""
 
 
 def message_parser(message):

@@ -16,86 +16,96 @@ def generate_answer(message):
     else:
       return {"error": "Unable to fetch data from the URL."}
 
-  if message == "/image_mmi":
-    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url_new)
+  elif message == "/image_mmi":
+    url_new_1 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new_1)
 
     if response.status_code == 200:
       info = response.json()["info"]
       eventid = info.get("eventid")
       if eventid is not None:
-        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}.mmi.jpg'
-        return url_imageMMIjpg
+        mmi_jpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}.mmi.jpg'
+        print("mmi jpg",mmi_jpg)
+        return mmi_jpg
       else:
         return {"error": "No eventid found."}
     else:
       return {"error": "Unable to fetch data from the URL."}
 
-  if message == "/intensity_logo":
-    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url_new)
+  elif message == "/intensity_logo":
+    url_new_2 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new_2)
 
     if response.status_code == 200:
       info = response.json()["info"]
       eventid = info.get("eventid")
+      print('Event ID',eventid)
       if eventid is not None:
-        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/intensity_logo.jpg'
-        return url_imageMMIjpg
+        url_intensity_logo = f'https://bmkg-content-inatews.storage.googleapis.com/{eventid}_rev/intensity_logo.jpg'
+        print('Generated URL:', url_intensity_logo)
+        return url_intensity_logo
       else:
         return {"error": "No eventid found."}
     else:
       return {"error": "Unable to fetch data from the URL."}
 
-  if message == "/impact_list":
-    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url_new)
+  elif message == "/impact_list":
+    url_new_3 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new_3)
 
     if response.status_code == 200:
       info = response.json()["info"]
       eventid = info.get("eventid")
+      print('Event ID',eventid)
       if eventid is not None:
-        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/impact_list.jpg'
-        return url_imageMMIjpg
+        url_impact_list = f'https://bmkg-content-inatews.storage.googleapis.com/{eventid}_rev/impact_list.jpg'
+        print('Generated URL:', url_impact_list)
+        return url_impact_list
       else:
         return {"error": "No eventid found."}
     else:
       return {"error": "Unable to fetch data from the URL."}
 
-  if message == "/stationlist_MMI":
-    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url_new)
+  elif message == "/stationlist_MMI":
+    url_new_4 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new_4)
 
     if response.status_code == 200:
       info = response.json()["info"]
       eventid = info.get("eventid")
+      print('Event ID',eventid)
       if eventid is not None:
-        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/stationlist_MMI.jpg'
-        return url_imageMMIjpg
+        url_stationlist_MMI = f'https://bmkg-content-inatews.storage.googleapis.com/{eventid}_rev/stationlist_MMI.jpg'
+        print('Generated URL:', url_stationlist_MMI)
+        return url_stationlist_MMI
       else:
         return {"error": "No eventid found."}
     else:
       return {"error": "Unable to fetch data from the URL."}
 
-  if message == "/loc_map":
-    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url_new)
+  elif message == "/loc_map":
+    url_new_5 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new_5)
 
     if response.status_code == 200:
       info = response.json()["info"]
       eventid = info.get("eventid")
+      print('Event ID',eventid)
       if eventid is not None:
-        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}_rev/loc_map.png'
-        return url_imageMMIjpg
+        url_loc_map = f'https://bmkg-content-inatews.storage.googleapis.com/{eventid}_rev/loc_map.png'
+        print('Generated URL:', url_loc_map)
+        return url_loc_map
       else:
         return {"error": "No eventid found."}
     else:
       return {"error": "Unable to fetch data from the URL."}
+  
 
   return """Invalid command. Please use :
 /new
+/image_mmi
 /intensity_logo
 /impact_list
-/image_mmi
 /stationlist_MMI
 /loc_map"""
 

@@ -8,7 +8,6 @@ app = Flask(__name__)
 token = os.environ['TELEGRAM_BOT_TOKEN']
 
 
-# https://api.telegram.org/bot{token}/setWebhook?url=https://telebot-college-test.ridwaanhall.repl.co/
 def generate_answer(message):
   if message == "/new":
     url = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'

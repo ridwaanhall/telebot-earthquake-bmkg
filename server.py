@@ -4,25 +4,38 @@ import requests
 from flask import Flask, Response, request
 
 app = Flask(__name__)
-# Get BOT Token from telegram
 token = os.environ['TELEGRAM_BOT_TOKEN']
 
 
 def generate_answer(message):
   if message == "/new":
-    url = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url)
+    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new)
 
     if response.status_code == 200:
       info = response.json()["info"]
       return info["headline"]
     else:
       return {"error": "Unable to fetch data from the URL."}
-  else:
-    return "Invalid command. Please use '/new'."
+
+  if message == "/image_mmi_jpg":
+    url_new = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new)
+
+    if response.status_code == 200:
+      info = response.json()["info"]
+      eventid = info.get("eventid")
+      if eventid is not None:
+        url_imageMMIjpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}.mmi.jpg'
+        return url_imageMMIjpg
+      else:
+        return {"error": "No eventid found."}
+    else:
+      return {"error": "Unable to fetch data from the URL."}
+
+  return "Invalid command. Please use '/new' or '/image_mmi_jpg'."
 
 
-# To Get Chat ID and message which is sent by client
 def message_parser(message):
   chat_id = message['message']['chat']['id']
   if 'text' in message['message']:
@@ -36,10 +49,16 @@ def message_parser(message):
     return chat_id, "Message does not contain text."
 
 
-# To send message using "SendMessage" API
 def send_message_telegram(chat_id, text):
   url = f'https://api.telegram.org/bot{token}/sendMessage'
   payload = {'chat_id': chat_id, 'text': text}
+  response = requests.post(url, json=payload)
+  return response
+
+
+def send_photo_telegram(chat_id, photo_url):
+  url = f'https://api.telegram.org/bot{token}/sendPhoto'
+  payload = {'chat_id': chat_id, 'photo': photo_url}
   response = requests.post(url, json=payload)
   return response
 
@@ -50,7 +69,11 @@ def index():
     msg = request.get_json()
     chat_id, incoming_que = message_parser(msg)
     answer = generate_answer(incoming_que)
-    send_message_telegram(chat_id, answer)
+
+    if answer.startswith('http'):
+      send_photo_telegram(chat_id, answer)
+    else:
+      send_message_telegram(chat_id, answer)
     return Response('ok', status=200)
   else:
     return "<h1>Something went wrong</h1>"

@@ -46,3 +46,7 @@ def send_message_telegram(chat_id, text):
     }
     response = requests.post(url, json=payload)
     return response
+
+-------------------------------
+-
+https://api.telegram.org/bot{YOUR_TOKEN_BOT}/setWebhook?url=YOUR_URL

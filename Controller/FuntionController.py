@@ -2,7 +2,10 @@ import os
 
 import requests
 
+import html2text
+
 token = os.environ['TELEGRAM_BOT_TOKEN']
+
 
 
 def generate_answer(message):
@@ -13,6 +16,17 @@ def generate_answer(message):
     if response.status_code == 200:
       info = response.json()["info"]
       return info["headline"]
+    else:
+      return {"error": "Unable to fetch data from the URL."}
+
+  elif message == "/narasi":
+    narasi_url = 'https://bmkg-content-inatews.storage.googleapis.com/20230921110712_narasi.txt'
+    response = requests.get(narasi_url)
+
+    if response.status_code == 200:
+      html_content = response.text
+      plain_text_content = html2text.html2text(html_content)
+      return plain_text_content
     else:
       return {"error": "Unable to fetch data from the URL."}
 

@@ -1,8 +1,7 @@
 import os
 
-import requests
-
 import html2text
+import requests
 
 token = os.environ['TELEGRAM_BOT_TOKEN']
 
@@ -20,8 +19,6 @@ def generate_answer(message):
       return {"error": "Unable to fetch data from the URL."}
 
   elif message == "/narasi":
-    url_new_1 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url_new_1)
     narasi_url = 'https://bmkg-content-inatews.storage.googleapis.com/20230921110712_narasi.txt'
     response = requests.get(narasi_url)
 
@@ -29,23 +26,6 @@ def generate_answer(message):
       html_content = response.text
       plain_text_content = html2text.html2text(html_content)
       return plain_text_content
-    else:
-      return {"error": "Unable to fetch data from the URL."}
-
-    #============================
-    
-    url_new_1 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
-    response = requests.get(url_new_1)
-
-    if response.status_code == 200:
-      info = response.json()["info"]
-      eventid = info.get("eventid")
-      if eventid is not None:
-        mmi_jpg = f'https://earthquake-bmkg-api.ridwaanhall.repl.co/{eventid}.mmi.jpg'
-        print("mmi jpg",mmi_jpg)
-        return mmi_jpg
-      else:
-        return {"error": "No eventid found."}
     else:
       return {"error": "Unable to fetch data from the URL."}
 

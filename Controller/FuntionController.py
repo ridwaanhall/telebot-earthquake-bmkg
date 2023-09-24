@@ -19,15 +19,27 @@ def generate_answer(message):
       return {"error": "Unable to fetch data from the URL."}
 
   elif message == "/narasi":
-    narasi_url = 'https://bmkg-content-inatews.storage.googleapis.com/20230921110712_narasi.txt'
-    response = requests.get(narasi_url)
-
+    url_new_1 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
+    response = requests.get(url_new_1)
+  
     if response.status_code == 200:
-      html_content = response.text
-      plain_text_content = html2text.html2text(html_content)
-      return plain_text_content
+      info = response.json()["info"]
+      eventid = info.get("eventid")
+      if eventid is not None:
+        narasi_url = f'https://bmkg-content-inatews.storage.googleapis.com/{eventid}_narasi.txt'
+        narasi_response = requests.get(narasi_url)
+  
+        if narasi_response.status_code == 200:
+          html_content = narasi_response.text
+          plain_text_content = html2text.html2text(html_content)
+          return plain_text_content
+        else:
+          return {"error": "Unable to fetch data from the URL."}
+      else:
+        return {"error": "No eventid found."}
     else:
       return {"error": "Unable to fetch data from the URL."}
+  
 
   elif message == "/image_mmi":
     url_new_1 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'

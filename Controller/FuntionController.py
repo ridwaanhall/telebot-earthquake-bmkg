@@ -16,7 +16,7 @@ def generate_answer(message):
       info = response.json()["info"]
       return info["headline"]
     else:
-      return {"error": "Unable to fetch data from the URL."}
+      return "Unable to fetch data from the URL."
 
   elif message == "/narasi":
     url_new_1 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
@@ -34,11 +34,11 @@ def generate_answer(message):
           plain_text_content = html2text.html2text(html_content)
           return plain_text_content
         else:
-          return {"error": "Unable to fetch data from the URL."}
+          return "Unable to fetch data from the URL."
       else:
-        return {"error": "No eventid found."}
+        return "No eventid found."
     else:
-      return {"error": "Unable to fetch data from the URL."}
+      return "Unable to fetch data from the URL."
   
 
   elif message == "/image_mmi":
@@ -53,9 +53,9 @@ def generate_answer(message):
         print("mmi jpg",mmi_jpg)
         return mmi_jpg
       else:
-        return {"error": "No eventid found."}
+        return "No eventid found."
     else:
-      return {"error": "Unable to fetch data from the URL."}
+      return "Unable to fetch data from the URL."
 
   elif message == "/intensity_logo":
     url_new_2 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
@@ -70,9 +70,9 @@ def generate_answer(message):
         print('Generated URL:', url_intensity_logo)
         return url_intensity_logo
       else:
-        return {"error": "No eventid found."}
+        return "No eventid found."
     else:
-      return {"error": "Unable to fetch data from the URL."}
+      return "Unable to fetch data from the URL."
 
   elif message == "/impact_list":
     url_new_3 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
@@ -87,9 +87,9 @@ def generate_answer(message):
         print('Generated URL:', url_impact_list)
         return url_impact_list
       else:
-        return {"error": "No eventid found."}
+        return "No eventid found."
     else:
-      return {"error": "Unable to fetch data from the URL."}
+      return "Unable to fetch data from the URL."
 
   elif message == "/stationlist_MMI":
     url_new_4 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
@@ -104,9 +104,9 @@ def generate_answer(message):
         print('Generated URL:', url_stationlist_MMI)
         return url_stationlist_MMI
       else:
-        return {"error": "No eventid found."}
+        return "No eventid found."
     else:
-      return {"error": "Unable to fetch data from the URL."}
+      return "Unable to fetch data from the URL."
 
   elif message == "/loc_map":
     url_new_5 = 'https://earthquake-bmkg-api.ridwaanhall.repl.co/new.json'
@@ -121,9 +121,9 @@ def generate_answer(message):
         print('Generated URL:', url_loc_map)
         return url_loc_map
       else:
-        return {"error": "No eventid found."}
+        return "No eventid found."
     else:
-      return {"error": "Unable to fetch data from the URL."}
+      return "Unable to fetch data from the URL."
   
 
   return """Invalid command. Please use :
